@@ -34,30 +34,6 @@ def get_html(url):
         print(f"There was an error during requests to {url} : {str(re)}")
         return None
 
-def insertDb(brandname, itemname, price, packsize, origin, ingredients, allergy, imagenames, category):
-    # try:
-    #     with db.cursor() as cursor:
-    #         cursor = db.cursor()
-    #         print(brandname, itemname, price, packsize, origin, ingredients, allergy, imagenames)
-    #         add_item  = ("INSERT INTO foods "
-    #                     "(brandname, itemname, price, packsize, origin, allergy) "
-    #                     "VALUES (%s, %s, %s, %s, %s, %s,%s,%s)")
-    #         data_item = (brandname, itemname, price, packsize, origin, allergy)
-    #         print(cursor.execute(add_item,data_item))
-    #         db.commit()
-    #         cursor.close()
-    # except Exception as e:
-    #     print (e)
-    try:
-        with db.cursor() as cursor:
-            cursor = db.cursor()
-            sql = "INSERT INTO `foods` (`brandname`, `itemname`,`price`,`packsize`,`origin`,`ingredients`,`allergy`,`imagenames`, `category`) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            cursor.execute(sql, (brandname, itemname, price, packsize, origin, ingredients, allergy, imagenames, category))
-            db.commit()
-            cursor.close()
-    except Exception as e:
-        print (e)
-
 
 def quality_response(resp):
     '''
@@ -198,29 +174,13 @@ def read_products():
 if __name__ == "__main__":
 
     url = 'https://www.amazon.in/product-reviews/B07FB4HBCR'
-    # print(get_item(url))
-    # Event Loop to process "events" and get the "values" of the inputs
     item_desc = []
     item_desc = read_products()
-    # print(item_desc)
-
-    # df = pd.DataFrame([['a', 'b'], ['c', 'd']],
-    #                index=['row 1', 'row 2'],
-    #                columns=['col 1', 'col 2'])
-    # with pd.ExcelWriter('output.xlsx',
-    #                 mode='a') as writer:  
-    #     df.to_excel(writer, sheet_name='Sheet_name_3')
-
     info_array = []
     id = 0
     for item_url in item_desc:
         print(id)
         print(item_url)
-        # if id == 0:
-        #     id += 1
-        #     continue
-        # if id > 10:
-        #     break
         item_info = get_item(item_url)
         # time.sleep(3)
         if item_info:
